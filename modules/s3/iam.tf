@@ -1,6 +1,7 @@
 # IAM Role for replication
 resource "aws_iam_role" "replication" {
-  name = var.role_name
+  count = var.is_source ? 1 : 0
+  name  = var.role_name
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -18,7 +19,8 @@ resource "aws_iam_role" "replication" {
 
 # IAM Policy for replication
 resource "aws_iam_policy" "replication" {
-  name = var.policy_name
+  count = var.is_source ? 1 : 0
+  name  = var.policy_name
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -30,7 +32,7 @@ resource "aws_iam_policy" "replication" {
         ]
         Effect = "Allow"
         Resource = [
-          var.source_bucket_arn
+          aws_s3_bucket.this.arn
         ]
       },
       {
@@ -41,7 +43,7 @@ resource "aws_iam_policy" "replication" {
         ]
         Effect = "Allow"
         Resource = [
-          "${var.source_bucket_arn}/*"
+          "${aws_s3_bucket.this.arn}/*"
         ]
       },
       {
@@ -61,6 +63,7 @@ resource "aws_iam_policy" "replication" {
 
 # Attach policy to IAM role
 resource "aws_iam_role_policy_attachment" "replication" {
+  count      = var.is_source ? 1 : 0
   role       = aws_iam_role.replication.name
   policy_arn = aws_iam_policy.replication.arn
 }

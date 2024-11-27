@@ -26,7 +26,7 @@ component "replication" {
     policy_name            = var.replication_policy
     source_bucket_arn      = component.source.bucket_arn
     destination_bucket_arn = component.destination.bucket_arn
-    source_bucket.         = component.source.bucket_id
+    source_bucket          = component.source.bucket_id
   }
   providers = {
     aws = provider.aws.source

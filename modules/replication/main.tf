@@ -1,6 +1,23 @@
+# Replication configuration for source bucket
+resource "aws_s3_bucket_replication_configuration" "this" {
+
+  role   = aws_iam_role.replication.arn
+  bucket = var.source_bucket_arn
+
+  rule {
+    id     = "replication_rule"
+    status = "Enabled"
+
+    destination {
+      bucket        = var.destination_bucket_arn
+      storage_class = var.destination_storage_class
+    }
+  }
+}
+
+
 # IAM Role for replication
 resource "aws_iam_role" "replication" {
-  count = var.is_source ? 1 : 0
   name  = var.role_name
 
   assume_role_policy = jsonencode({
@@ -19,7 +36,6 @@ resource "aws_iam_role" "replication" {
 
 # IAM Policy for replication
 resource "aws_iam_policy" "replication" {
-  count = var.is_source ? 1 : 0
   name  = var.policy_name
 
   policy = jsonencode({
@@ -63,9 +79,8 @@ resource "aws_iam_policy" "replication" {
 
 # Attach policy to IAM role
 resource "aws_iam_role_policy_attachment" "replication" {
-  count      = var.is_source ? 1 : 0
-  role       = aws_iam_role.replication[count.index].name
-  policy_arn = aws_iam_policy.replication[count.index].arn
+  role       = aws_iam_role.replication.name
+  policy_arn = aws_iam_policy.replication.arn
 }
 
 

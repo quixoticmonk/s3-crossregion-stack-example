@@ -10,7 +10,7 @@ store "varset" "role_dev" {
 deployment "dev" {
   inputs = {
     identity_token          = identity_token.aws.jwt
-    role_arn                = varset.role_dev.role_arn
+    role_arn                = store.varset.role_dev.role_arn
 
     source_bucket_name      = "manu-2024-source"
     destination_bucket_name = "manu-2024-destination"

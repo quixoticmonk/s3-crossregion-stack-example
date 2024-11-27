@@ -64,8 +64,8 @@ resource "aws_iam_policy" "replication" {
 # Attach policy to IAM role
 resource "aws_iam_role_policy_attachment" "replication" {
   count      = var.is_source ? 1 : 0
-  role       = aws_iam_role.replication.name
-  policy_arn = aws_iam_policy.replication.arn
+  role       = aws_iam_role.replication[count.index].name
+  policy_arn = aws_iam_policy.replication[count.index].arn
 }
 
 

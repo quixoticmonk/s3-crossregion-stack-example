@@ -32,9 +32,16 @@ variable "destination_storage_class" {
 variable "role_name" {
   type        = string
   description = "Name of the IAM role"
+  default = null
 }
 
 variable "policy_name" {
   type        = string
   description = "Name of the IAM policy"
+  default = null
+}
+
+variable "destination_bucket_arn" {
+  type        = string
+  description = "ARN of the destination bucket"
 }

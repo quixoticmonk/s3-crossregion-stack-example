@@ -48,7 +48,7 @@ resource "aws_iam_policy" "replication" {
         ]
         Effect = "Allow"
         Resource = [
-          aws_s3_bucket.this.arn
+          var.source_bucket_arn
         ]
       },
       {
@@ -59,7 +59,7 @@ resource "aws_iam_policy" "replication" {
         ]
         Effect = "Allow"
         Resource = [
-          "${aws_s3_bucket.this.arn}/*"
+          "${var.source_bucket_arn}/*"
         ]
       },
       {

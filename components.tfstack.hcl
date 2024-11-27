@@ -1,7 +1,7 @@
 component "source" {
   source = "./modules/s3"
   inputs = {
-    bucket_name            = "${var.source_bucket_name}-${var.prefix}"
+    bucket_name            = "${var.source_bucket_name}-${var.suffix}"
   }
   providers = {
     aws = provider.aws.source
@@ -11,7 +11,7 @@ component "source" {
 component "destination" {
   source = "./modules/s3"
   inputs = {
-    bucket_name          = "${var.destination_bucket_name}-${var.prefix}"
+    bucket_name          = "${var.destination_bucket_name}-${var.suffix}"
   }
   providers = {
     aws = provider.aws.dest

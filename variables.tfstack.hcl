@@ -16,7 +16,7 @@ variable "destination_bucket_name" {
     type = string
 }
 
-variable "prefix" {
+variable "suffix" {
     type = string
 }
 

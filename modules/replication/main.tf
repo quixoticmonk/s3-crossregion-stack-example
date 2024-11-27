@@ -2,7 +2,7 @@
 resource "aws_s3_bucket_replication_configuration" "this" {
 
   role   = aws_iam_role.replication.arn
-  bucket = var.source_bucket_arn
+  bucket = var.source_bucket
 
   rule {
     id     = "replication_rule"

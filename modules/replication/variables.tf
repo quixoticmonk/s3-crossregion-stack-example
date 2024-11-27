@@ -9,6 +9,11 @@ variable "policy_name" {
   description = "Name of the IAM policy"
 }
 
+variable "source_bucket" {
+  type        = string
+  description = "Name of the source bucket"
+}
+
 variable "source_bucket_arn" {
   type        = string
   description = "ARN of the source bucket"

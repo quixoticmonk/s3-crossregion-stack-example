@@ -40,8 +40,3 @@ variable "policy_name" {
   description = "Name of the IAM policy"
   default = null
 }
-
-variable "destination_bucket_arn" {
-  type        = string
-  description = "ARN of the destination bucket"
-}
